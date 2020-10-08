@@ -1,0 +1,83 @@
+This readme will explain the whole process of installing Cypress with
+a REACT application and also cypress test deployment and pipeline
+integration with Azure DevOps as well as providing best practice info
+
+1. Install cypress. Run the following command in your application:
+
+	npm install cypress --save-dev
+    npm install start-server-and-test --save-dev
+	npm install mocha-junit-reporter --save-dev
+	npm install cypress-multi-reporters --save-dev
+	
+2. Add the following custom scripts in your package.json file 
+in order to make the test running simpler:
+
+    "cypress-open": "cypress open",
+    "cypress-run": "cypress run ,toConsole=true",
+    "cypress-run-report": "cypress run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json",
+    "e2e": "start-server-and-test start http://localhost:3000 cypress-run-report"
+
+3. Running the following command will add the needed files to your project:
+
+	npm run cypress-open
+	
+4. Add typescript in your application. Run this command:
+
+    npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+
+    In the cypress folder create a tsconfig.json file with the folowing code to enable typescript
+    {
+        "compilerOptions": {
+            "target": "es5",
+            "lib": ["es5", "dom"],
+            "types": ["cypress"]
+        },
+        "include": [
+            "**/*.ts"
+        ]
+    }
+
+    *You can now create .ts files for testing
+    *You can also delete the example folder in cypress/integration path
+
+5. Set up reports. Update your cypress.json file with the following code:
+
+    {
+        "video": false,
+        "reporter": "cypress-multi-reporters",
+        "reporterOptions": {
+        "configFile": "reporter-config.json"
+        }
+    }
+
+6. Pipeline integration. Add the following code in the .yaml file:
+
+    - script: 'rm -r cypress/results'
+    workingDirectory: 'UI'
+    displayName: 'Remove existing test results'
+
+    - script: 'npm run e2e'
+    workingDirectory: 'UI'
+    displayName: 'Run user journey tests'
+
+    - task: PublishTestResults@2
+    displayName: 'Publish Test Results'
+    inputs:
+        testResultsFiles: '**/results-*.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)/UI/cypress/results'
+
+******************************************************************
+
+Best Practices:
+
+1. Selecting Elements
+
+    Instead of targeting elements based on CSS attributes such as: id, class, tag,
+    always use data-* attributes to make it easier to target elements and
+    to isolate them from CSS or JS changes.
+
+    Example a button that we want to interact with:
+    <button id="main" class="btn btn-large" name="submission" data-cy="submit">Submit</button>
+    
+    and then target it with next code:
+    cy.get('[data-cy=submit]').click()
