@@ -1,9 +1,18 @@
-import React, { useState } from "react";
 import { jsx } from "@emotion/core";
-import { postTasks } from "../services/Tasklist";
+import React, { useState } from "react";
 /** @jsx jsx */
 
-export default ({ name, state }: { name: string; state: boolean }) => {
+export type callbackType = ({name, state}:{name: string, state: boolean}) => void;
+
+export default ({
+    name,
+    state,
+    callback,
+}: {
+    name: string;
+    state: boolean;
+    callback: any;
+}) => {
     const style = {
         list: {
             margin: "1rem",
@@ -29,6 +38,9 @@ export default ({ name, state }: { name: string; state: boolean }) => {
         checked: {
             color: "green",
         },
+        unchecked: {
+            color: "lightgrey",
+        },
     };
 
     const styleMarked = {
@@ -38,34 +50,35 @@ export default ({ name, state }: { name: string; state: boolean }) => {
         },
     };
 
-    const nameStyle = (state: boolean) => {
+    const toggleNameStyle = (state: boolean) => {
         return state ? styleMarked.name : style.name;
     };
 
-    const checked = (state: boolean) => {
-        return state ? (
-            <div css={style.checked}>
-                <i className="fas fa-check-circle"></i>
-            </div>
-        ) : (
-            <div>
-                <i className="far fa-circle"></i>
-            </div>
-        );
+    const toggleCheck = (state: boolean) => {
+        return state ? checked() : unchecked();
+    };
+    const unchecked = () => {
+        return (<i css={style.unchecked} className="far fa-circle"></i>);
     };
 
     const [updatedState, setUpdateState] = useState(state);
 
     const clicked = () => {
-        postTasks({ name, state: !updatedState });
+        callback({ name, state: !updatedState });
         setUpdateState(!updatedState);
+    };
+
+    const checked = () => {
+        return (<i css={style.checked} className="fas fa-check-circle"></i>);
     };
 
     return (
         <li css={style.list} onClick={clicked}>
             <div css={style.task}>
-                <div css={style.check}>{checked(updatedState)}</div>
-                <div css={nameStyle(updatedState)}>{name}</div>
+                <div css={style.check}>{toggleCheck(updatedState)}</div>
+                <div data-id="name" css={toggleNameStyle(updatedState)}>
+                    {name}
+                </div>
             </div>
             <hr css={style.margin} />
         </li>

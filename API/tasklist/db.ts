@@ -1,8 +1,8 @@
 const data = [
-    { name: "hugs with Hugs", state: true },
-    { name: "Water plants", state: true },
+    { name: "more hugs", state: true },
+    { name: "water plants", state: true },
     { name: "Amazon delivery", state: false },
-    { name: "Decide where to go for holiday with Hugs", state: false }
+    { name: "Decide where to go on holiday", state: false }
 ];
 
 export const get = () => {

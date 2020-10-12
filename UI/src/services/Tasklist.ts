@@ -4,8 +4,8 @@ export const getTasks = async () => {
     return await response.json();
 };
 
-export const postTasks = async (body: any) => {
-    const response = await fetch("http://localhost:7071/api/tasklist", {
+export const postTasks = async({ url, body }: { url: string, body: any }) => {
+    const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(body)
     });

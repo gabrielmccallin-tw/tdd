@@ -9,18 +9,17 @@
       "port": 9222
     },
     {
-      "name": "Debug Jest Tests UI",
+      "name": "Debug CRA Tests",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "${workspaceRoot}/UI/node_modules/.bin/react-scripts",
-      "cwd": "${workspaceFolder}/UI",
-      "args": [
-        "test",
-        "--runInBand"
-      ],
+      "args": ["test", "--runInBand", "--no-cache", "--watchAll=false"],
+      "cwd": "${workspaceRoot}/UI",
       "protocol": "inspector",
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
+      "env": { "CI": "true" },
+      "disableOptimisticBPs": true
     },
     {
       "name": "Attach to Node Functions",
