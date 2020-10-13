@@ -9,7 +9,7 @@
       "port": 9222
     },
     {
-      "name": "Debug CRA Tests",
+      "name": "Debug UI Tests",
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "${workspaceRoot}/UI/node_modules/.bin/react-scripts",
