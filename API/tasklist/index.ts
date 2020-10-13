@@ -1,19 +1,12 @@
 import { Context, HttpRequest } from "@azure/functions";
-import { get, update } from './db';
+import { dbConnect } from './db';
 
-export default async (context: Context, req: HttpRequest): Promise<void> => {
+export default async (context: Context, { method, body }: HttpRequest): Promise<void> => {
     context.log('HTTP trigger function processed a request.');
 
-    let body;
-    if (req.method === "GET") {
-        body = get();
-    }
-    if (req.method === "POST") {
-        update(req.body);
-        body = JSON.stringify(get());
-    }
+    const response = dbConnect({ method, body });
 
     context.res = {
-        body
+        body: JSON.stringify(response)
     };
 };

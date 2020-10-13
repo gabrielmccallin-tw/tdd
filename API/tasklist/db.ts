@@ -1,4 +1,4 @@
-export const data = [
+const data = [
     { name: "more hugs", state: true },
     { name: "water plants", state: true },
     { name: "Amazon delivery", state: false },
@@ -9,7 +9,14 @@ export const get = () => {
     return data;
 };
 
-export const update = (item: { name: string, state: boolean }) => {
+const update = (item: { name: string, state: boolean }) => {
     Object.assign(data, data.map(el => el.name === item.name ? item : el))
     return data;
-}
+};
+
+export const dbConnect = ({method, body}: {method: string, body?: any}) => {
+    if (method === "POST") {
+        update(body);
+    }
+    return get();
+};
