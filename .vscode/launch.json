@@ -13,20 +13,40 @@
       "type": "node",
       "request": "launch",
       "runtimeExecutable": "${workspaceRoot}/UI/node_modules/.bin/react-scripts",
-      "args": ["test", "--runInBand", "--no-cache", "--watchAll=false"],
+      "args": [
+        "test",
+        "--runInBand",
+        "--no-cache",
+        "--watchAll=false"
+      ],
       "cwd": "${workspaceRoot}/UI",
       "protocol": "inspector",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "env": { "CI": "true" },
+      "disableOptimisticBPs": true
+    },
+    {
+      "name": "Debug API Tests",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "${workspaceRoot}/API/node_modules/.bin/jest",
+      "args": [
+        "test",
+        "--runInBand",
+        "--no-cache",
+        "--watchAll=false"
+      ],
+      "cwd": "${workspaceRoot}/API",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
       "disableOptimisticBPs": true
     },
     {
       "name": "Attach to Node Functions",
       "type": "node",
       "request": "attach",
-      "port": 9229,
-      "preLaunchTask": "func: host start"
+      "port": 9229
     }
   ]
 }

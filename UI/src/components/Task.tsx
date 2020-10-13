@@ -1,8 +1,15 @@
 import { jsx } from "@emotion/core";
 import React, { useState } from "react";
+import { FaCheckCircle } from "react-icons/fa";
+import { FaRegCircle } from "react-icons/fa";
 /** @jsx jsx */
 
-export type callbackType = ({name, state}:{name: string, state: boolean}) => void;
+export type taskType = {
+    name: string;
+    state: boolean;
+};
+
+export type callbackType = ({ name, state }: taskType) => void;
 
 export default ({
     name,
@@ -11,7 +18,7 @@ export default ({
 }: {
     name: string;
     state: boolean;
-    callback: any;
+    callback: callbackType;
 }) => {
     const style = {
         list: {
@@ -57,23 +64,25 @@ export default ({
     const toggleCheck = (state: boolean) => {
         return state ? checked() : unchecked();
     };
+
     const unchecked = () => {
-        return (<i css={style.unchecked} className="far fa-circle"></i>);
+        return <FaCheckCircle color="green"/>;
+    };
+
+    const checked = () => {
+        return <FaRegCircle color="lightgray"/>;
     };
 
     const [updatedState, setUpdateState] = useState(state);
 
-    const clicked = () => {
-        callback({ name, state: !updatedState });
-        setUpdateState(!updatedState);
-    };
-
-    const checked = () => {
-        return (<i css={style.checked} className="fas fa-check-circle"></i>);
+    const clickHandler = () => {
+        const newState = !updatedState;
+        callback({name, state: newState});
+        setUpdateState(newState);
     };
 
     return (
-        <li css={style.list} onClick={clicked}>
+        <li css={style.list} onClick={clickHandler}>
             <div css={style.task}>
                 <div css={style.check}>{toggleCheck(updatedState)}</div>
                 <div data-id="name" css={toggleNameStyle(updatedState)}>

@@ -1,10 +1,9 @@
 # User story
 
 ## AC
-- A task is shown as complete
-- Mark a task as complete shows complete state (see design)
-- Mark a task as uncomplete shows uncomplete state (see design)
-- On user interaction save item state to the database
+- Click incompleted task marks the task as complete (see design)
+- Click completed task marks the task as incomplete (see design)
+- The task state (complete / incomplete) is stored in the database (by calling the API)
 
 
 

@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { css, jsx, Global } from "@emotion/core";
-import Task from "./components/Task";
-import { getTasks, postTasks } from "./services/Tasklist";
+import { jsx, Global } from "@emotion/core";
+import Tasks from "./view/Tasks";
+import { init } from "./services/Tasklist";
 /** @jsx jsx */
 
 export default () => {
-    const [list, setList] = useState([]);
+    const url = "http://localhost:7071/api/tasklist";
 
-    const renderList = (list: { name: string; state: boolean }[]) => {
-        return list.map(({ name, state }) => {
-            return <Task name={name} state={state} callback={postTasks}/>;
-        });
-    };
+    const { get, update } = init(url);
+    const [list, setList] = useState([]);
 
     useEffect(() => {
         const getAPI = async () => {
-            setList(await getTasks());
+            setList(await get());
         };
 
         getAPI();
@@ -32,12 +29,12 @@ export default () => {
                 }}
             />
             <ul
-                css={css({
+                css={{
                     margin: 0,
                     padding: 0,
-                })}
+                }}
             >
-                {renderList(list)}
+                <Tasks list={list} update={update}/>
             </ul>
         </React.Fragment>
     );

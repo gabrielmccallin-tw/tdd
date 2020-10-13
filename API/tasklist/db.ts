@@ -1,4 +1,4 @@
-const data = [
+export const data = [
     { name: "more hugs", state: true },
     { name: "water plants", state: true },
     { name: "Amazon delivery", state: false },
