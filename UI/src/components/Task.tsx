@@ -1,5 +1,5 @@
 import { jsx } from "@emotion/core";
-import React, { useState } from "react";
+import React from "react";
 import { FaRegCircle, FaCheckCircle } from "react-icons/fa";
 /** @jsx jsx */
 
@@ -10,15 +10,7 @@ export type taskType = {
 
 export type callbackType = ({ name, state }: taskType) => void;
 
-export default ({
-    name,
-    state,
-    callback,
-}: {
-    name: string;
-    state: boolean;
-    callback: callbackType;
-}) => {
+export default ({ name, state }: { name: string; state: boolean }) => {
     const style = {
         list: {
             margin: "1rem",
@@ -72,19 +64,11 @@ export default ({
         return <FaCheckCircle color="green" />;
     };
 
-    const [updatedState, setUpdateState] = useState(state);
-
-    const clickHandler = () => {
-        const newState = !updatedState;
-        callback({ name, state: newState });
-        setUpdateState(newState);
-    };
-
     return (
-        <li css={style.list} onClick={clickHandler}>
+        <li css={style.list}>
             <div css={style.task}>
-                <div css={style.check}>{toggleCheck(updatedState)}</div>
-                <div data-id="name" css={toggleNameStyle(updatedState)}>
+                <div css={style.check}>{toggleCheck(state)}</div>
+                <div data-id="name" css={toggleNameStyle(state)}>
                     {name}
                 </div>
             </div>
