@@ -27,10 +27,10 @@ const updateTasks = async ({ url, body }: { url: string, body: taskType }) => {
 };
 
 export const init = (url: string) => ({
-    update: ({ name, state }: taskType) => {
+    updateTaskList: ({ name, state }: taskType) => {
         return errorCheck(updateTasks, { url, body: { name, state } })
     },
-    get: () => {
+    getTaskList: () => {
         return errorCheck(getTasks, url);
     }
 });

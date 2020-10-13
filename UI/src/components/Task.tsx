@@ -13,11 +13,11 @@ export type callbackType = ({ name, state }: taskType) => void;
 export default ({
     name,
     state,
-    callback,
+    callback
 }: {
     name: string;
     state: boolean;
-    callback: callbackType;
+    callback: callbackType
 }) => {
     const style = {
         list: {

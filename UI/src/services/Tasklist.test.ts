@@ -6,7 +6,7 @@ const url = "";
 const errorResponse = "database 💔";
 
 describe("services", () => {
-    const { get, update } = init(url);
+    const { getTaskList, updateTaskList } = init(url);
     beforeEach(() => {
         fetchMock.resetMocks();
     });
@@ -14,7 +14,7 @@ describe("services", () => {
     describe("get tasks", () => {
         it("should get list of tasks", async () => {
             fetchMock.mockResponseOnce(JSON.stringify(fixture));
-            const response = await get();
+            const response = await getTaskList();
 
             expect(response).toEqual(fixture);
         });
@@ -23,7 +23,7 @@ describe("services", () => {
             fetchMock.mockRejectOnce(Error(errorResponse));
 
             try {
-                await get();
+                await getTaskList();
             } catch (error) {
                 expect(error).toEqual(Error(errorResponse));
             }
@@ -35,7 +35,7 @@ describe("services", () => {
             fetchMock.mockResponseOnce(JSON.stringify({}), { status, statusText });
 
             try {
-                await get();
+                await getTaskList();
             } catch (error) {
                 expect(error).toEqual(Error(`[ERROR] ${status} ${statusText}`));
             }
@@ -51,7 +51,7 @@ describe("services", () => {
 
             fetchMock.mockResponseOnce(JSON.stringify(fixture));
 
-            await update(fixture[0]);
+            await updateTaskList(fixture[0]);
 
             expect(fetchMock.mock.calls.length).toEqual(1);
             expect(fetchMock.mock.calls[0][1]).toEqual({method: "POST", body: JSON.stringify(fixture[0])});
@@ -66,7 +66,7 @@ describe("services", () => {
             fetchMock.mockRejectOnce(Error(errorResponse));
 
             try {
-                await update(fixture);
+                await updateTaskList(fixture);
             } catch (error) {
                 expect(error).toEqual(Error(errorResponse));
             }
@@ -83,7 +83,7 @@ describe("services", () => {
             fetchMock.mockResponseOnce(JSON.stringify({}), { status, statusText });
 
             try {
-                await update(fixture);
+                await updateTaskList(fixture);
             } catch (error) {
                 expect(error).toEqual(Error(`[ERROR] ${status} ${statusText}`));
             }
