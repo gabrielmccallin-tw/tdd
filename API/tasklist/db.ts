@@ -10,7 +10,7 @@ export const get = () => {
 };
 
 const update = (item: { name: string, state: boolean }) => {
-    Object.assign(data, data.map(el => el.name === item.name ? item : el))
+    Object.assign(data, data.map(el => el.name === item.name ? item : el));
     return data;
 };
 
