@@ -1,7 +1,6 @@
 import { jsx } from "@emotion/core";
 import React, { useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
-import { FaRegCircle } from "react-icons/fa";
+import { FaRegCircle, FaCheckCircle } from "react-icons/fa";
 /** @jsx jsx */
 
 export type taskType = {
@@ -66,11 +65,11 @@ export default ({
     };
 
     const unchecked = () => {
-        return <FaCheckCircle color="green"/>;
-    };
-
-    const checked = () => {
         return <FaRegCircle color="lightgray"/>;
+    };
+    
+    const checked = () => {
+        return <FaCheckCircle color="green"/>;
     };
 
     const [updatedState, setUpdateState] = useState(state);
