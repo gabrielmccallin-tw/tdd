@@ -13,11 +13,11 @@ export type callbackType = ({ name, state }: taskType) => void;
 export default ({
     name,
     state,
-    callback
+    callback,
 }: {
     name: string;
     state: boolean;
-    callback: callbackType
+    callback: callbackType;
 }) => {
     const style = {
         list: {
@@ -65,18 +65,18 @@ export default ({
     };
 
     const unchecked = () => {
-        return <FaRegCircle color="lightgray"/>;
+        return <FaRegCircle color="lightgray" />;
     };
-    
+
     const checked = () => {
-        return <FaCheckCircle color="green"/>;
+        return <FaCheckCircle color="green" />;
     };
 
     const [updatedState, setUpdateState] = useState(state);
 
     const clickHandler = () => {
         const newState = !updatedState;
-        callback({name, state: newState});
+        callback({ name, state: newState });
         setUpdateState(newState);
     };
 

@@ -3,7 +3,7 @@ import Task from "../components/Task";
 
 export default ({
     list,
-    update,
+    update: updateTasklist,
 }: {
     list: { name: string; state: boolean }[];
     update: any;
@@ -11,7 +11,7 @@ export default ({
     const renderList = (list: { name: string; state: boolean }[]) => {
         return list.map(({ name, state }, index) => {
             return (
-                <Task name={name} state={state} key={index} />
+                <Task name={name} state={state} key={index} callback={updateTasklist}/>
             );
         });
     };

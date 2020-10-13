@@ -12,7 +12,7 @@ export default () => {
 
     useEffect(() => {
         const getAPI = async () => {
-            setList(await get());
+            setList(await getTaskList());
         };
 
         getAPI();
