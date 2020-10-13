@@ -1,22 +1,14 @@
 import React from "react";
 import { configure, shallow } from "enzyme";
 import Task from "./Task";
-import { FaCheckCircle, FaCircle } from "react-icons/fa";
+import { FaCheckCircle, FaCircle, FaRegCircle } from "react-icons/fa";
 // import Adapter from "enzyme-adapter-react-16";
 
 // configure({ adapter: new Adapter() });
 
-describe("Toggle check", () => {
+describe("mark tasks", () => {
     const fixture = "hello";
     const callback = jest.fn();
-
-    it("should render Task ", () => {
-        const component = shallow(
-            <Task name={fixture} state={true} callback={callback} />
-        );
-
-        expect(component.find(Task)).toBeTruthy();
-    });
 
     it("should render the name of the task", () => {
         const component = shallow(
@@ -33,7 +25,7 @@ describe("Toggle check", () => {
             <Task name={fixture} state={false} callback={callback} />
         );
 
-        expect(component.find(FaCircle)).toBeTruthy();
+        expect(component.find(FaRegCircle).exists()).toBeTruthy();
     });
 
     it("should render a ticked circle if state is true ", () => {
@@ -41,7 +33,7 @@ describe("Toggle check", () => {
             <Task name={fixture} state={true} callback={callback} />
         );
 
-        expect(component.find(FaCheckCircle)).toBeTruthy();
+        expect(component.find(FaCheckCircle).exists()).toBeTruthy();
     });
 
     it("should render the name of the task with a line through if state is true", () => {
@@ -60,7 +52,7 @@ describe("Toggle check", () => {
         );
 
         component.simulate("click");
-        expect(component.find(FaCheckCircle)).toBeTruthy();
+        expect(component.find(FaCheckCircle).exists()).toBeTruthy();
     });
 
     // Click completed task marks the task as incomplete
@@ -70,7 +62,7 @@ describe("Toggle check", () => {
         );
 
         component.simulate("click");
-        expect(component.find(FaCircle)).toBeTruthy();
+        expect(component.find(FaRegCircle).exists()).toBeTruthy();
     });
 
     // The task state (complete / incomplete) is stored in the database (by calling the API)
