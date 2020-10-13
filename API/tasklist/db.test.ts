@@ -2,7 +2,7 @@ import { init } from './db';
 
 describe("db", () => {
     it("should get empty list", async () => {
-        const { getTasklist } = init();
+        const { getTasklist } = init([]);
         const response = getTasklist();
         
         expect(response).toEqual([]);
