@@ -56,5 +56,37 @@ describe("services", () => {
             expect(fetchMock.mock.calls.length).toEqual(1);
             expect(fetchMock.mock.calls[0][1]).toEqual({method: "POST", body: JSON.stringify(fixture[0])});
         });
+
+        it("should throw if call is unsuccessful", async () => {
+            const fixture = {
+                "name": "more hugs",
+                "state": true
+            };
+
+            fetchMock.mockRejectOnce(Error(errorResponse));
+
+            try {
+                await update(fixture);
+            } catch (error) {
+                expect(error).toEqual(Error(errorResponse));
+            }
+        });
+
+        it("should throw if call is is in response range outside of 200 - 299", async () => {
+            const fixture = {
+                "name": "more hugs",
+                "state": true
+            };
+
+            const status = 404;
+            const statusText = "🔍";
+            fetchMock.mockResponseOnce(JSON.stringify({}), { status, statusText });
+
+            try {
+                await update(fixture);
+            } catch (error) {
+                expect(error).toEqual(Error(`[ERROR] ${status} ${statusText}`));
+            }
+        });
     });
 });

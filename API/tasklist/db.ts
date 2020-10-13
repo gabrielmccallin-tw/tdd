@@ -15,8 +15,12 @@ const update = (item: { name: string, state: boolean }) => {
 };
 
 export const dbConnect = ({method, body}: {method: string, body?: any}) => {
-    if (method === "POST") {
-        update(body);
+    try {
+        if (method === "POST") {
+            update(body);
+        }
+        return get();
+    } catch (error) {
+        throw error;
     }
-    return get();
 };

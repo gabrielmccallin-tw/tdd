@@ -45,7 +45,6 @@ describe("mark tasks", () => {
         expect(containerStyle).toHaveProperty("textDecoration", "line-through");
     });
 
-    // Click incompleted task marks the task as complete
     it("should mark the task complete when an incomplete task is clicked", () => {
         const component = shallow(
             <Task name={fixture} state={false} callback={callback} />
@@ -55,7 +54,6 @@ describe("mark tasks", () => {
         expect(component.find(FaCheckCircle).exists()).toBeTruthy();
     });
 
-    // Click completed task marks the task as incomplete
     it("should mark the task incomplete when a complete task is clicked", () => {
         const component = shallow(
             <Task name={fixture} state={true} callback={callback} />
@@ -65,7 +63,6 @@ describe("mark tasks", () => {
         expect(component.find(FaRegCircle).exists()).toBeTruthy();
     });
 
-    // The task state (complete / incomplete) is stored in the database (by calling the API)
     it("should call the api with the updated state when a task is clicked", () => {
         const component = shallow(
             <Task name={fixture} state={false} callback={callback} />
@@ -75,26 +72,4 @@ describe("mark tasks", () => {
         expect(callback).toBeCalledWith({ name: fixture, state: true });
     });
 
-    // it("should render a ticked circle if state is false and the task is clicked", () => {
-    //     const component = shallow(<Task name={fixture} state={false} callback={callback}/>);
-    //     component.simulate("click");
-
-    //     expect(component.find(".fa-check-circle")).toHaveLength(1);
-    //     expect(component.find(".fas")).toHaveLength(1);
-    // });
-
-    // it("should render a name with a line through if state is false and the task is clicked", () => {
-    //     const component = shallow(<Task name={fixture} state={false} callback={callback}/>);
-    //     component.simulate("click");
-
-    //     let containerStyle = component.find({ "data-id": "name" }).props().css;
-    //     expect(containerStyle).toHaveProperty("textDecoration", "line-through");
-    // });
-
-    // it.only("should call injected callback on click", () => {
-    //     const component = shallow(<Task name={fixture} state={false} callback={callback}/>);
-    //     component.simulate("click");
-
-    //     expect(callback).toHaveBeenCalledTimes(1);
-    // }); Gabriel!!
 });
