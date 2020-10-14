@@ -1,5 +1,3 @@
-import { taskType } from "../components/Task";
-
 const errorCheck = async <T>(call: (args: T) => Promise<Response>, args: T) => {
     try {
         const response = await call(args);
@@ -19,7 +17,7 @@ const getTasks = async (url: string) => {
     return await fetch(url);
 };
 
-const updateTasks = async ({ url, body }: { url: string, body: taskType }) => {
+const updateTasks = async ({ url, body }: { url: string, body: { name: string, state: boolean } }) => {
     return await fetch(url, {
         method: "POST",
         body: JSON.stringify(body)
@@ -27,7 +25,7 @@ const updateTasks = async ({ url, body }: { url: string, body: taskType }) => {
 };
 
 export const init = (url: string) => ({
-    updateTaskList: ({ name, state }: taskType) => {
+    updateTaskList: ({ name, state }: { name: string, state: boolean }) => {
         return errorCheck(updateTasks, { url, body: { name, state } })
     },
     getTaskList: () => {

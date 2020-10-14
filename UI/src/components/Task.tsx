@@ -1,15 +1,8 @@
 import { jsx } from "@emotion/core";
 import React, { useState } from "react";
 import { FaRegCircle, FaCheckCircle } from "react-icons/fa";
+import { callbackType } from "../view/Tasks";
 /** @jsx jsx */
-
-export type callbackType = ({
-    name,
-    state,
-}: {
-    name: string;
-    state: boolean;
-}) => void;
 
 export default ({
     name,
