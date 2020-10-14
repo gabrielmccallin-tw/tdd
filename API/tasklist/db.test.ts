@@ -21,12 +21,15 @@ describe("db", () => {
     });
     
     it("should update a task", async () => {
-        const { updateTasklist } = init([{ name: "more hugs", state: true }]);
-        const body = { name: "more hugs", state: false };
+        const fixture = [
+            { name: "more hugs", state: true },
+            { name: "no hugs 😢", state: true }
+        ];
+        const { getTasklist, updateTasklist } = init(fixture);
+        
+        const newItem = { name: "more hugs", state: false };
+        updateTasklist(newItem);
 
-        // returns whole list from db
-        const response = updateTasklist(body);
-
-        expect(response).toEqual([{ name: "more hugs", state: false }]);
+        expect(getTasklist()[0]).toEqual(newItem);
     });
 });
