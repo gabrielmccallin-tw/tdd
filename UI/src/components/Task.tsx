@@ -1,5 +1,5 @@
 import { jsx } from "@emotion/core";
-import React, { useState } from "react";
+import React from "react";
 import { FaRegCircle, FaCheckCircle } from "react-icons/fa";
 import { callbackType } from "../view/Tasks";
 /** @jsx jsx */
@@ -66,19 +66,11 @@ export default ({
         return <FaCheckCircle color="green" />;
     };
 
-    const [updatedState, setUpdateState] = useState(state);
-
-    const clickHandler = () => {
-        const newState = !updatedState;
-        callback && callback({ name, state: newState });
-        setUpdateState(newState);
-    };
-
     return (
-        <li css={style.list} onClick={clickHandler}>
+        <li css={style.list}>
             <div css={style.task}>
-                <div css={style.check}>{toggleCheck(updatedState)}</div>
-                <div data-id="name" css={toggleNameStyle(updatedState)}>
+                <div css={style.check}>{toggleCheck(state)}</div>
+                <div data-id="name" css={toggleNameStyle(state)}>
                     {name}
                 </div>
             </div>
