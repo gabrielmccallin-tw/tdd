@@ -2,11 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Chrome",
+      "name": "Chrome",
       "request": "launch",
       "type": "pwa-chrome",
       "url": "http://localhost:3000",
       "port": 9222
+    },
+    {
+      "name": "Edge",
+      "type": "edge",
+      "request": "launch",
+      "url": "http://localhost:3000",
     },
     {
       "name": "Debug UI Tests",

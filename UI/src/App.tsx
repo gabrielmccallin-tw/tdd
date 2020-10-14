@@ -7,7 +7,7 @@ import { init } from "./services/Tasklist";
 export default () => {
     const url = "http://localhost:7071/api/tasklist";
 
-    const { getTaskList, updateTaskList } = init(url);
+    const { getTaskList } = init(url);
     const [list, setList] = useState([]);
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export default () => {
                     padding: 0,
                 }}
             >
-                <Tasks list={list} update={updateTaskList}/>
+                <Tasks list={list} />
             </ul>
         </React.Fragment>
     );

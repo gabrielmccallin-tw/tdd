@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { FaRegCircle, FaCheckCircle } from "react-icons/fa";
 /** @jsx jsx */
 
-export type taskType = {
+export type callbackType = ({
+    name,
+    state,
+}: {
     name: string;
     state: boolean;
-};
-
-export type callbackType = ({ name, state }: taskType) => void;
+}) => void;
 
 export default ({
     name,
@@ -17,7 +18,7 @@ export default ({
 }: {
     name: string;
     state: boolean;
-    callback: callbackType;
+    callback?: callbackType;
 }) => {
     const style = {
         list: {
@@ -76,7 +77,7 @@ export default ({
 
     const clickHandler = () => {
         const newState = !updatedState;
-        callback({ name, state: newState });
+        callback && callback({ name, state: newState });
         setUpdateState(newState);
     };
 
