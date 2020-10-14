@@ -1,0 +1,13 @@
+{
+  "name": "brkrprtl",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run ui\" \"npm run api\"",
+    "api": "cd API && concurrently \"npm run watch\" \"npm run start\"",
+    "ui": "cd UI && npm start"
+  }
+}
