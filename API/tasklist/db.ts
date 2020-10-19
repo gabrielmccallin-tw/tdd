@@ -10,7 +10,13 @@ export const init = (seed?: any) => {
     return {
         getTasklist: () => {
             return data;
-        }
+        },
+        // updateTasklist: (next: { name: string, state: boolean }) => {
+        //     Object.assign(data, data.map((current: { name: string, state: boolean }) => current.name === next.name ? next : current));
+        //     return true;
+        // },
     }
+
+
 };
 
